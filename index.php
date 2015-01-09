@@ -28,12 +28,11 @@ Flight::route('GET /categorie/@id', function($id)
 });
 Flight::route('POST /categorie', function()
 {
-    // On récupère les paramètres POST
-    $nom = filter_input(INPUT_POST, 'nom');
-    $image = filter_input(INPUT_POST, 'image');
+    // On récupère le corps du HTML (parametre POST)
+    $param = Tools::ToArray(file_get_contents("php://input"));
 
     // On appelle la fonction correspondante
-    Categorie::create($nom, $image);
+    Categorie::create($param);
 });
 Flight::route('DELETE /categorie/@id', function($id)
 {
