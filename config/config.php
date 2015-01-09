@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 
+global $CONFIG;
+
 $CONFIG = array();
 
 // Set environnment dev or prod

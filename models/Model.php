@@ -11,15 +11,23 @@
  *
  * @author Aschen
  */
-
-require_once 'config/config.php';
-
 class Model
 {
     private $dbh = null;
 
+    public function __construct()
+    {
+        $this->ConnectMysql();
+    }
+    
+    public function __destruct()
+    {
+        $this->CloseMysql();
+    }
+    
     public function ConnectMysql()
     {
+        global $CONFIG;
         if ($this->dbh != null)
         {
             return true;
@@ -41,11 +49,13 @@ class Model
 
     public function CloseMysql()
     {
-      $dbh = null;
+        $this->dbh = null;
     }
 
     public function DoQuery($query)
     {
-      return $this->dbh->query($query);
+        $ret = $this->dbh->query($query);
+        
+        return $ret->fetchAll(PDO::FETCH_ASSOC);
     }
 }
