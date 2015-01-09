@@ -38,11 +38,8 @@ class Categorie {
             die(Tools::ToJson(array('error' => 'invalid id')));
         }
         
-        // On prépare la requète
-        $query = "SELECT * FROM categories WHERE idCategorie = $id";
-        
-        // On récupère les résultats de la requète
-        $rep = $dbModel->DoQuery($query);
+        // On récupère la catégorie $id
+        $rep = $dbModel->getCategorie($id);
         
         // Envoi de la réponse JSON
         if (empty($rep))
@@ -60,8 +57,18 @@ class Categorie {
         // On récupère le model
         $dbModel = new CategorieModel();        
 
+        // On récupère toutes les categories
+        $rep = $dbModel->getAllCategories();
+
         // On prépare la réponse en JSON
-        $rep = Tools::ToJson($dbModel->getAllCategories());
+        if (empty($rep))
+        {
+            die(Tools::ToJson(array("error" => "no categorie")));
+        }
+        else
+        {
+            die(Tools::ToJson($rep));
+        }
         
         // On envoi la réponse JSON
         die($rep);
@@ -69,30 +76,23 @@ class Categorie {
 
     /**
      * Créé une nouvelle catégorie
-     * Paramètres POST : 'nom' et 'image'
      */
-    public static function create($nom, $image)
+    public static function create($param)
     {
         // On récupère le model
         $dbModel = new CategorieModel();        
 
-      // Si il manque un paramètre on renvoi une erreur
-      if ($nom == false || $image == false)
-      {
-            die(Tools::ToJson(array('error' => 'missing parameters')));
-      }
+        // Si il manque un paramètre on renvoi une erreur
+        if ($param === false || empty($param['nom']) || empty($param['image']))
+        {
+            die(Tools::ToJson(array("error" => "invalid parameters")));
+        }
 
-      // On prépare la requète
-      $query = "INSERT INTO categories (nom, image) VALUES ('$nom', '$image')";
+        // On créé la catégorie
+        $rep = $dbModel->createCategorie($param['nom'], $param['image']);
       
-      // On execute la requete
-      $dbModel->DoQuery($query);
-  
-      // On récupère l'id de la catégorie créé (/!\ Attention accès concurentiel!!)
-      $rep = $dbModel->DoQuery("SELECT * FROM categories WHERE nom='$nom' AND image='$image' ORDER BY idCategorie DESC");      
-      
-      // On renvoi le dernier enregistrement créé
-      die(Tools::ToJson($rep[0]));
+        // On renvoi l'enregistrement créé
+        die(Tools::ToJson($rep));
     }
 
     public static function delete($id)
@@ -112,12 +112,10 @@ class Categorie {
             die(Tools::ToJson(array('error' => 'invalid id')));
         }
 
-        // On prépare la requète
-        $query = "DELETE FROM categories WHERE idCategorie='$id'";
+        // On supprime la catégorie
+        $dbModel->deleteCategorie($id);
         
-        // On exécute la requète
-        $dbModel->DoQuery($query);
-        
+        // On renvoi la réponse JSON
         die(Tools::ToJson(array("id" => $id)));
     }
 
@@ -138,17 +136,16 @@ class Categorie {
             die(Tools::ToJson(array('error' => 'invalid id')));
         }
 
+        // Si un paramètre manque
         if ($param === false || empty($param['nom']) || empty($param['image']))
         {
             die(Tools::ToJson(array("error" => "invalid parameters")));
         }
                 
-        // On prépare la requète
-        $query = "UPDATE categories SET nom='" . $param['nom'] . "', image='" . $param['image'] . "' WHERE idCategorie=$id";
+        // On met a jour la catégorie
+        $dbModel->updateCategorie($id, $param['nom'], $param['image']);
         
-        // On exécute la requète
-        $dbModel->DoQuery($query);
-
+        // On envoi l'enregistrement mis a jour en JSON
         die(Tools::ToJson(array("id" => $id, "nom" => $param['nom'], "image" => $param['image'])));
     }
 
