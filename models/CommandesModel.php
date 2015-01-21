@@ -15,8 +15,7 @@
 include_once 'models/Model.php';
 
 class CommandesModel extends Model
-{
-    
+{    
     public function getCommande($id)
     {
         $query = "SELECT * FROM commandes WHERE idCommande=$id"; 
