@@ -20,7 +20,7 @@ class CommandeController
     public function get($id)
     {
         $dbModel = new CommandesModel();
-        
+
         // On convertit la valeur en int
         if (is_string($id))
         {
@@ -32,10 +32,10 @@ class CommandeController
         {
             die(Tools::ToJson(array('error' => 'invalid id')));
         }
-        
+
         // On récupère la catégorie $id
         $rep = $dbModel->getCommande($id);
-        
+
         // Envoi de la réponse JSON
         if (empty($rep))
         {
@@ -44,13 +44,13 @@ class CommandeController
         else
         {
             die(Tools::ToJson($rep));
-        }        
+        }
     }
-    
+
     public function getAll()
     {
         // On récupère le model
-        $dbModel = new CommandeModel();        
+        $dbModel = new CommandeModel();
 
         // On récupère toutes les commandes
         $rep = $dbModel->getAllCommandes();
@@ -62,17 +62,15 @@ class CommandeController
         }
         else
         {
+            // On envoi la réponse JSON
             die(Tools::ToJson($rep));
         }
-        
-        // On envoi la réponse JSON
-        die($rep);        
     }
-    
+
     public function getAllFromSession($idSession)
     {
         // On récupère le model
-        $dbModel = new CommandeModel();        
+        $dbModel = new CommandeModel();
 
         // On récupère toutes les commandes
         $rep = $dbModel->getAllSessionCommandes($idSession);
@@ -84,17 +82,15 @@ class CommandeController
         }
         else
         {
+            // On envoi la réponse JSON
             die(Tools::ToJson($rep));
         }
-        
-        // On envoi la réponse JSON
-        die($rep);                
     }
-    
+
     public function create($param)
     {
         // On récupère le model
-        $dbModel = new CommandeModel();        
+        $dbModel = new CommandeModel();
 
         // Si il manque un paramètre on renvoi une erreur
         if ($param === false || empty($param['idSession']) || empty($param['idProduit']) || empty($param['quantite']))
@@ -104,15 +100,15 @@ class CommandeController
 
         // On créé la commande
         $rep = $dbModel->createCommande($param['idSession'], $param['idProduit'], $param['quantite']);
-      
+
         // On renvoi l'enregistrement créé
-        die(Tools::ToJson($rep));        
+        die(Tools::ToJson($rep));
     }
-    
+
     public function delete($id)
     {
         // On récupère le model
-        $dbModel = new CommandeModel();        
+        $dbModel = new CommandeModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -128,15 +124,15 @@ class CommandeController
 
         // On supprime la catégorie
         $dbModel->deleteCommande($id);
-        
+
         // On renvoi la réponse JSON
-        die(Tools::ToJson(array("id" => $id)));       
+        die(Tools::ToJson(array("id" => $id)));
     }
-    
+
     public static function update($id, $param)
     {
         // On récupère le model
-        $dbModel = new CommandeModel();        
+        $dbModel = new CommandeModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -155,10 +151,10 @@ class CommandeController
         {
             die(Tools::ToJson(array("error" => "invalid parameters")));
         }
-                
+
         // On met a jour la catégorie
         $dbModel->updateCommande($id, $param['idProduit'], $param['quantite']);
-        
+
         // On envoi l'enregistrement mis a jour en JSON
         die(Tools::ToJson(array("id" => $id, "idProduit" => $param['idProduit'], "quantite" => $param['quantite'])));
     }

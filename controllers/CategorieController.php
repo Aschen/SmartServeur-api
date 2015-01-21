@@ -24,7 +24,7 @@ class Categorie {
     public static function get($id)
     {
         // On récupère le model
-        $dbModel = new CategorieModel();        
+        $dbModel = new CategorieModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -37,10 +37,10 @@ class Categorie {
         {
             die(Tools::ToJson(array('error' => 'invalid id')));
         }
-        
+
         // On récupère la catégorie $id
         $rep = $dbModel->getCategorie($id);
-        
+
         // Envoi de la réponse JSON
         if (empty($rep))
         {
@@ -48,14 +48,15 @@ class Categorie {
         }
         else
         {
+            // On envoi la réponse JSON
             die(Tools::ToJson($rep));
         }
     }
-    
+
     public static function getAll()
     {
         // On récupère le model
-        $dbModel = new CategorieModel();        
+        $dbModel = new CategorieModel();
 
         // On récupère toutes les categories
         $rep = $dbModel->getAllCategories();
@@ -67,12 +68,10 @@ class Categorie {
         }
         else
         {
+            // On envoi la réponse JSON
             die(Tools::ToJson($rep));
         }
-        
-        // On envoi la réponse JSON
-        die($rep);
-    }    
+    }
 
     /**
      * Créé une nouvelle catégorie
@@ -80,7 +79,7 @@ class Categorie {
     public static function create($param)
     {
         // On récupère le model
-        $dbModel = new CategorieModel();        
+        $dbModel = new CategorieModel();
 
         // Si il manque un paramètre on renvoi une erreur
         if ($param === false || empty($param['nom']) || empty($param['image']))
@@ -90,7 +89,7 @@ class Categorie {
 
         // On créé la catégorie
         $rep = $dbModel->createCategorie($param['nom'], $param['image']);
-      
+
         // On renvoi l'enregistrement créé
         die(Tools::ToJson($rep));
     }
@@ -98,7 +97,7 @@ class Categorie {
     public static function delete($id)
     {
         // On récupère le model
-        $dbModel = new CategorieModel();        
+        $dbModel = new CategorieModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -114,7 +113,7 @@ class Categorie {
 
         // On supprime la catégorie
         $dbModel->deleteCategorie($id);
-        
+
         // On renvoi la réponse JSON
         die(Tools::ToJson(array("id" => $id)));
     }
@@ -122,7 +121,7 @@ class Categorie {
     public static function update($id, $param)
     {
         // On récupère le model
-        $dbModel = new CategorieModel();        
+        $dbModel = new CategorieModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -141,10 +140,10 @@ class Categorie {
         {
             die(Tools::ToJson(array("error" => "invalid parameters")));
         }
-                
+
         // On met a jour la catégorie
         $dbModel->updateCategorie($id, $param['nom'], $param['image']);
-        
+
         // On envoi l'enregistrement mis a jour en JSON
         die(Tools::ToJson(array("id" => $id, "nom" => $param['nom'], "image" => $param['image'])));
     }
