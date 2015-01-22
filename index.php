@@ -5,14 +5,6 @@ include_once 'controllers/CategorieController.php';
 include_once 'models/Model.php';
 
 
-Flight::route('GET /', function(){
-    $BddManager = new Model();
-    $BddManager->ConnectMysql();
-        foreach($BddManager->DoQuery('SELECT * FROM categories') as $row) {
-        print_r($row);
-    }
-});
-
 /**
  * Categorie routes
  */

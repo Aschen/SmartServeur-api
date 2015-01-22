@@ -69,9 +69,6 @@ class Categorie {
         {
             die(Tools::ToJson($rep));
         }
-        
-        // On envoi la réponse JSON
-        die($rep);
     }    
 
     /**

@@ -32,6 +32,6 @@ else if ($CONFIG['ENV'] == 'prod')
 if ($CONFIG['ENV'] == 'dev')
 {
     $CONFIG['mysql_user'] = 'root';
-    $CONFIG['mysql_password'] = 'wxcvbn';
-    $CONFIG['mysql_database'] = 'smart-serveur';
+    $CONFIG['mysql_password'] = '';
+    $CONFIG['mysql_database'] = 'db_smart_serveur';
 }
