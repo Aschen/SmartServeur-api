@@ -15,7 +15,7 @@
 include_once 'misc/Tools.php';
 include_once 'models/CategorieModel.php';
 
-class Categorie {
+class CategorieController {
 
     /**
      * Renvoi les informations sur une catégorie

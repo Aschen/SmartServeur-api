@@ -14,7 +14,7 @@
 
 include_once 'models/Model.php';
 
-class CommandesModel extends Model
+class CommandeModel extends Model
 {    
     public function getCommande($id)
     {

@@ -17,9 +17,9 @@ include_once 'models/CommandeModel.php';
 
 class CommandeController
 {
-    public function get($id)
+    public static function get($id)
     {
-        $dbModel = new CommandesModel();
+        $dbModel = new CommandeModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -47,7 +47,7 @@ class CommandeController
         }
     }
 
-    public function getAll()
+    public static function getAll()
     {
         // On récupère le model
         $dbModel = new CommandeModel();
