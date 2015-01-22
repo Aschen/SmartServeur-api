@@ -7,24 +7,19 @@
  */
 
 /**
- * Description of categorie
+ * Description of CommandeController
  *
  * @author Aschen
  */
 
 include_once 'misc/Tools.php';
-include_once 'models/CategorieModel.php';
+include_once 'models/CommandeModel.php';
 
-class Categorie {
-
-    /**
-     * Renvoi les informations sur une catégorie
-     * @param string $id Identifiant de la catégorie qu'on veut récupérer
-     */
-    public static function get($id)
+class CommandeController
+{
+    public function get($id)
     {
-        // On récupère le model
-        $dbModel = new CategorieModel();
+        $dbModel = new CommandesModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -39,7 +34,7 @@ class Categorie {
         }
 
         // On récupère la catégorie $id
-        $rep = $dbModel->getCategorie($id);
+        $rep = $dbModel->getCommande($id);
 
         // Envoi de la réponse JSON
         if (empty($rep))
@@ -48,58 +43,72 @@ class Categorie {
         }
         else
         {
-            // On envoi la réponse JSON
             die(Tools::ToJson($rep));
         }
     }
 
-    public static function getAll()
+    public function getAll()
     {
         // On récupère le model
-        $dbModel = new CategorieModel();
+        $dbModel = new CommandeModel();
 
-        // On récupère toutes les categories
-        $rep = $dbModel->getAllCategories();
+        // On récupère toutes les commandes
+        $rep = $dbModel->getAllCommandes();
 
         // On prépare la réponse en JSON
         if (empty($rep))
         {
-            die(Tools::ToJson(array("error" => "no categorie")));
+            die(Tools::ToJson(array("error" => "no commandes")));
         }
         else
         {
             // On envoi la réponse JSON
             die(Tools::ToJson($rep));
         }
+    }
 
-}    
-
-
-    /**
-     * Créé une nouvelle catégorie
-     */
-    public static function create($param)
+    public function getAllFromSession($idSession)
     {
         // On récupère le model
-        $dbModel = new CategorieModel();
+        $dbModel = new CommandeModel();
+
+        // On récupère toutes les commandes
+        $rep = $dbModel->getAllSessionCommandes($idSession);
+
+        // On prépare la réponse en JSON
+        if (empty($rep))
+        {
+            die(Tools::ToJson(array("error" => "no commandes")));
+        }
+        else
+        {
+            // On envoi la réponse JSON
+            die(Tools::ToJson($rep));
+        }
+    }
+
+    public function create($param)
+    {
+        // On récupère le model
+        $dbModel = new CommandeModel();
 
         // Si il manque un paramètre on renvoi une erreur
-        if ($param === false || empty($param['nom']) || empty($param['image']))
+        if ($param === false || empty($param['idSession']) || empty($param['idProduit']) || empty($param['quantite']))
         {
             die(Tools::ToJson(array("error" => "invalid parameters")));
         }
 
-        // On créé la catégorie
-        $rep = $dbModel->createCategorie($param['nom'], $param['image']);
+        // On créé la commande
+        $rep = $dbModel->createCommande($param['idSession'], $param['idProduit'], $param['quantite']);
 
         // On renvoi l'enregistrement créé
         die(Tools::ToJson($rep));
     }
 
-    public static function delete($id)
+    public function delete($id)
     {
         // On récupère le model
-        $dbModel = new CategorieModel();
+        $dbModel = new CommandeModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -114,7 +123,7 @@ class Categorie {
         }
 
         // On supprime la catégorie
-        $dbModel->deleteCategorie($id);
+        $dbModel->deleteCommande($id);
 
         // On renvoi la réponse JSON
         die(Tools::ToJson(array("id" => $id)));
@@ -123,7 +132,7 @@ class Categorie {
     public static function update($id, $param)
     {
         // On récupère le model
-        $dbModel = new CategorieModel();
+        $dbModel = new CommandeModel();
 
         // On convertit la valeur en int
         if (is_string($id))
@@ -138,16 +147,15 @@ class Categorie {
         }
 
         // Si un paramètre manque
-        if ($param === false || empty($param['nom']) || empty($param['image']))
+        if ($param === false || empty($param['idProduit']) || empty($param['quantite']))
         {
             die(Tools::ToJson(array("error" => "invalid parameters")));
         }
 
         // On met a jour la catégorie
-        $dbModel->updateCategorie($id, $param['nom'], $param['image']);
+        $dbModel->updateCommande($id, $param['idProduit'], $param['quantite']);
 
         // On envoi l'enregistrement mis a jour en JSON
-        die(Tools::ToJson(array("id" => $id, "nom" => $param['nom'], "image" => $param['image'])));
+        die(Tools::ToJson(array("id" => $id, "idProduit" => $param['idProduit'], "quantite" => $param['quantite'])));
     }
-
 }

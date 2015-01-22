@@ -4,7 +4,6 @@ include_once 'flight/Flight.php';
 include_once 'controllers/CategorieController.php';
 include_once 'models/Model.php';
 
-
 /**
  * Categorie routes
  */
@@ -35,7 +34,7 @@ Flight::route('PUT /categorie/@id', function($id)
 {
     // On récupère le corps du HTML (parametre PUT)
     $param = Tools::ToArray(file_get_contents("php://input"));
-    
+
     // On appelle la function correspondante
     Categorie::update($id, $param);
 });
