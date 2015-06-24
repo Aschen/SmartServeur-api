@@ -1,4 +1,4 @@
 class Session < ActiveRecord::Base
-  has_many  :sessions
   belongs_to  :table
+  belongs_to  :order
 end
