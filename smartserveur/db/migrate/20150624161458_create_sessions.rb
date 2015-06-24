@@ -1,0 +1,10 @@
+class CreateSessions < ActiveRecord::Migration
+  def change
+    create_table :sessions do |t|
+      t.boolean :expired
+      t.string :table_id
+
+      t.timestamps null: false
+    end
+  end
+end
