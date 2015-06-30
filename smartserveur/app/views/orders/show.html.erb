@@ -15,5 +15,10 @@
   <%= @order.product_id %>
 </p>
 
+<p>
+  <strong>Served:</strong>
+  <%= @order.served %>
+</p>
+
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

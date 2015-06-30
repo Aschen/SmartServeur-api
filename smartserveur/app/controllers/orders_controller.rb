@@ -1,6 +1,15 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
+
+  # GET /orders/from_table/1
+  def from_table
+    @orders = Order.joins(session: :table).where("table_number = ? AND served = ?", params[:table_number], false)
+#    @orders = Order.joins(:product)
+    render json: @orders
+  end
+
+
   # GET /orders
   # GET /orders.json
   def index
@@ -69,6 +78,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:quantity, :session_id, :product_id)
+      params.require(:order).permit(:quantity, :session_id, :product_id, :served)
     end
 end

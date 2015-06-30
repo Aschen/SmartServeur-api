@@ -1,6 +1,12 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
+  # GET /products/from_category/1
+  def from_category
+    @products = Product.where(category_id: params[:category_id])
+    render json: @products
+  end
+
   # GET /products
   # GET /products.json
   def index
