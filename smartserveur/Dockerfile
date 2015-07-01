@@ -1,5 +1,5 @@
 # === 1 ===
-FROM phusion/passenger-ruby21:0.9.12
+FROM phusion/passenger-ruby22
 MAINTAINER Jeroen van Baarsen "jeroen@firmhouse.com"
 
 # Set correct environment variables.
