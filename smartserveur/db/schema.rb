@@ -14,42 +14,42 @@
 ActiveRecord::Schema.define(version: 20150624164554) do
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
-    t.string   "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "image",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "quantity"
-    t.integer  "session_id"
-    t.integer  "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "served"
+    t.integer  "quantity",   limit: 4
+    t.integer  "session_id", limit: 4
+    t.integer  "product_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.boolean  "served",     limit: 1
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "name"
-    t.string   "image"
-    t.string   "description"
-    t.integer  "price"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",        limit: 255
+    t.string   "image",       limit: 255
+    t.string   "description", limit: 255
+    t.integer  "price",       limit: 4
+    t.integer  "category_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.boolean  "expired"
-    t.string   "table_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "expired",    limit: 1
+    t.string   "table_id",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "tables", force: :cascade do |t|
-    t.integer  "table_number"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "table_number", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end

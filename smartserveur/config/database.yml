@@ -10,8 +10,15 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  database: db/development.sqlite3
+  adapter: mysql2
+  database: db_smart_serveur
+  username: smart-serveur
+  password: epsi_smartserveur
+  host: aschen.ovh
+
+#development:
+#  <<: *default
+#  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -21,5 +28,8 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: mysql2
+  database: db_smart_serveur
+  username: smart-serveur
+  password: epsi_smartserveur
+  host: aschen.ovh
