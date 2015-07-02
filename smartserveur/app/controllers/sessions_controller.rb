@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :set_session, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /sessions
   # GET /sessions.json
@@ -35,7 +36,7 @@ class SessionsController < ApplicationController
         format.json { render json: @session.errors, status: :unprocessable_entity }
       end
     end
-  end
+ end
 
   # PATCH/PUT /sessions/1
   # PATCH/PUT /sessions/1.json
@@ -69,6 +70,11 @@ class SessionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_params
+      if !params.has_key?("utf8")
+        params[:session] = {}
+        params[:session][:table_id] = params[:table_id]
+        params[:session][:expired] = params[:expired]
+      end
       params.require(:session).permit(:expired, :table_id)
     end
 end
