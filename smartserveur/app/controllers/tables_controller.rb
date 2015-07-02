@@ -69,6 +69,10 @@ class TablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def table_params
+      if !params.has_key?("utf8")
+        params[:table] = {}
+        params[:table][:table_number] = params[:table_number]
+      end
       params.require(:table).permit(:table_number)
     end
 end

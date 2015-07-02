@@ -75,6 +75,14 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
+      if !params.has_key?("utf8")
+        params[:product] = {}
+        params[:product][:name] = params[:name]
+        params[:product][:image] = params[:image]
+        params[:product][:description] = params[:description]
+        params[:product][:price] = params[:price]
+        params[:product][:category_id] = params[:category_id]
+      end
       params.require(:product).permit(:name, :image, :description, :price, :category_id)
     end
 end

@@ -78,6 +78,13 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
+      if !params.has_key?("utf8")
+        params[:order] = {}
+        params[:order][:quantity] = params[:quantity]
+        params[:order][:session_id] = params[:session_id]
+        params[:order][:product_id] = params[:product_id]
+        params[:order][:served] = params[:served]
+      end
       params.require(:order).permit(:quantity, :session_id, :product_id, :served)
     end
 end

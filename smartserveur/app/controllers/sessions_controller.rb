@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   before_action :set_session, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token
 
   # GET /sessions
   # GET /sessions.json
