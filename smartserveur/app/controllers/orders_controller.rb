@@ -8,9 +8,9 @@ class OrdersController < ApplicationController
     render json: @orders
   end
 
-    # GET /orders/from_table/1/all
-    def from_table_all
-      @orders = Order.joins(session: :table).where("table_id = ? AND expired = ?", params[:table_id], false)
+    # GET /orders/from_session/1/
+    def from_session
+      @orders = Order.joins(:session).where("session_id = ? AND expired = ?", params[:session_id], false)
       render json: @orders
     end
 
