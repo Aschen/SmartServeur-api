@@ -10,8 +10,8 @@ class OrdersController < ApplicationController
 
     # GET /orders/from_session/1/
     def from_session
-      @orders = Order.joins(:session).where("session_id = ? AND expired = ?", params[:session_id], false)
-      render json: @orders
+      @orders = Order.where(session_id: params[:session_id]).joins(:session, :product).includes(:product)
+      render json: @orders, :include => :product
     end
 
 
