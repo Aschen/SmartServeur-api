@@ -4,10 +4,15 @@ class OrdersController < ApplicationController
 
   # GET /orders/from_table/1
   def from_table
-    @orders = Order.joins(session: :table).where("table_number = ? AND served = ?", params[:table_number], false)
-#    @orders = Order.joins(:product)
+    @orders = Order.joins(session: :table).where("table_id = ? AND served = ? AND expired = ?", params[:table_id], false, false)
     render json: @orders
   end
+
+    # GET /orders/from_table/1/all
+    def from_table_all
+      @orders = Order.joins(session: :table).where("table_id = ? AND expired = ?", params[:table_id], false)
+      render json: @orders
+    end
 
 
   # GET /orders
