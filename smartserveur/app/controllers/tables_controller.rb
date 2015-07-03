@@ -1,6 +1,12 @@
 class TablesController < ApplicationController
   before_action :set_table, only: [:show, :edit, :update, :destroy]
 
+
+  def from_number
+    @table = Table.where(table_number: params[:table_number])
+    render json: @table
+  end
+
   # GET /tables
   # GET /tables.json
   def index

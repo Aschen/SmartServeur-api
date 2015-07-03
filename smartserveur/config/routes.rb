@@ -17,4 +17,7 @@ Rails.application.routes.draw do
 
   # Get all orders from session
   get 'orders/from_session/:session_id', to: 'orders#from_session'
+
+  # Get table from table number
+  get 'tables/from_number/:table_number', to: 'tables#from_number'
 end
