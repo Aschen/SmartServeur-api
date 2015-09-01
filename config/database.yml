@@ -31,5 +31,5 @@ production:
   adapter: mysql2
   database: db_smart_serveur
   username: smart-serveur
-  password: epsi_smartserveur
+  password: epsi_smartserveur # Not the real one, obviously ;)
   host: aschen.ovh
