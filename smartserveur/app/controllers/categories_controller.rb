@@ -69,11 +69,8 @@ class CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
-      if !params.has_key?("utf8")
-        params[:category] = {}
-        params[:category][:name] = params[:name]
-        params[:category][:image] = params[:image]
-      end
+      params[:category] = {}
+      params.each { |k, v| params[:category][k] = v unless ['category', 'controller', 'action'].include? k }
       params.require(:category).permit(:name, :image)
     end
 end
