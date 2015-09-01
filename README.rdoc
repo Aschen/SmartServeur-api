@@ -1,3 +1,25 @@
 = SmartServeur API
 
 Provide a JSON API to the android application.
+
+== Standard routes
+
+The tables *products*, *categories*, *orders*, *tables*, *sessions* use the default rails route.
+* `GET products.json` will give info about all products
+* `GET products/42.json` will give info about product 42
+* `POST products.json` (with arg) will create a new product
+etc ...
+
+== Custom routes
+
+* Get all product from a category id : `GET products/from_category/42`
+* Get all current orders from a table id : `GET orders/from_table/21`
+* Get all orders from a session id : `GET orders/from_session/84`
+* Get table id from table number : `GET tables/from_number/168`
+
+== Build
+
+You can build the application in a Docker container.
+Make sure you have Docker and type : `docker build -t smart-serveur .
+Then run the container : `docker run -d -p 80:80 smart-serveur`
+Acces your app : `http://localhost/products`
