@@ -23,6 +23,6 @@ You can build the application in a Docker container.
 
 Make sure you have Docker and type : docker build -t smart-serveur .
 
-Then run the container : docker run -d -p 80:80 smart-serveur
+Then run the container : docker run -d -p 3000:80 smart-serveur
 
 Acces your app : http://localhost/products
