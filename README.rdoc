@@ -19,6 +19,8 @@ etc ...
 
 == Build
 
+(Your own database is needed, don't forget to edit the app configuration)
+
 You can build the application in a Docker container.
 
 Make sure you have Docker and type : docker build -t smart-serveur .
